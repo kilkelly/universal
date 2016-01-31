@@ -1,5 +1,5 @@
 require("babel-register");
-var server = require("./src/server");
+var server = require("./server");
 
 // start without optional port argument
 server.start();

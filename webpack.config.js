@@ -3,7 +3,7 @@ var webpack = require("webpack");
 
 module.exports = {
 	entry: [
-		"./src/client"
+		"./client"
 	],
 	output: {
 		path: path.join(__dirname, "dist"),

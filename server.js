@@ -2,8 +2,7 @@ import React from "react"
 import express from "express"
 import { match, RoutingContext } from "react-router"
 import { renderToString } from "react-dom/server"
-import renderUniversal from "./render"
-import { routes } from "../routes"
+import { routes } from "./shared/routes"
 
 export const start = (port = 3000) => {
 	const app = express()	
@@ -12,6 +11,7 @@ export const start = (port = 3000) => {
 
 	app.get("*", (req, res) => {		
 
+		// React Router URL matching and handling
 		match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {						
 			if (error) {
 				res.status(500).send(error.message);
