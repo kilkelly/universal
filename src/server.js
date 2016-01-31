@@ -21,9 +21,18 @@ export const start = (port = 3000) => {
 				res.redirect(302, redirectLocation.pathname + redirectLocation.search)
 			} else if (renderProps) {
 
-				let html = '<html><head><title>Universal</title></head><body><div id="root"><div>'					
-				html += renderToString(<RoutingContext {...renderProps} />)				
-				html += '</div></div><script src="bundle.js"></script></body></html>'
+				let componentHtml = renderToString(<RoutingContext {...renderProps} />)				
+
+				let html = `
+				<html>
+					<head>
+						<title>Universal</title>
+					</head>
+					<body>
+						<div id="root">${componentHtml}</div>
+						<script src="bundle.js"></script>
+					</body>
+				</html>`
 
 				res.status(200).send(html)		
 			} else {
