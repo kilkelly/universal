@@ -1,5 +1,5 @@
 import React from "react"
-import renderUniversal from "./render"
-import App from "./components/App"
+import ReactDOM from "react-dom"
+import { routes } from "../routes";
 
-renderUniversal(<App />, document.getElementById("root"))
+ReactDOM.render(routes, document.getElementById("root"))

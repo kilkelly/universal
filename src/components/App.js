@@ -1,10 +1,13 @@
 import React from "react"
-import Hello from "./hello"
+import Menu from "./Menu"
 
 export default class App extends React.Component {
 	render() {
 		return(
-			<h1>hi</h1>
-		);	
+				<div>
+					<Menu />
+					{this.props.children}										
+				</div>	
+		)
 	}
 }
