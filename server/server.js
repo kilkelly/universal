@@ -24,6 +24,7 @@ export const start = (port = 3000) => {
 			} else if (renderProps) {
 
 				let componentHtml = renderToString(<Provider store={store}><RoutingContext {...renderProps} /></Provider>)				
+				let initialState = JSON.stringify(store.getState())
 
 				let html = `
 				<!DOCTYPE HTML>
@@ -32,19 +33,11 @@ export const start = (port = 3000) => {
 						<title>Universal</title>
 						<meta charset="UTF-8" />
 						<script>
-							window.__INITIAL_STATE__ = {
-								location: "client",
-								todos: [
-								{
-									text: "Make bed"
-								},
-								{
-									text: "Buy groceries"
-								}]
-							}
+							window.__INITIAL_STATE__ = ${initialState}
 						</script>
 					</head>
 					<body>
+						<div id="location" style="background-color: #FFC;padding:5px">server</div>
 						<div id="root">${componentHtml}</div>
 						<script src="bundle.js"></script>
 					</body>

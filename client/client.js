@@ -6,3 +6,7 @@ import store from "../shared/store"
 
 ReactDOM.render(<Provider store={store}>{routes}</Provider>,
 				 document.getElementById("root"))
+
+const location = document.getElementById("location")
+location.textContent = "client"
+location.style.backgroundColor = "#6CF"
