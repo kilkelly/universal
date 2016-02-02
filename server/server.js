@@ -2,7 +2,9 @@ import React from "react"
 import express from "express"
 import { match, RoutingContext } from "react-router"
 import { renderToString } from "react-dom/server"
+import { Provider } from "react-redux"
 import { routes } from "../shared/routes"
+import store from "../shared/store"
 
 export const start = (port = 3000) => {
 	const app = express()	
@@ -21,12 +23,26 @@ export const start = (port = 3000) => {
 				res.redirect(302, redirectLocation.pathname + redirectLocation.search)
 			} else if (renderProps) {
 
-				let componentHtml = renderToString(<RoutingContext {...renderProps} />)				
+				let componentHtml = renderToString(<Provider store={store}><RoutingContext {...renderProps} /></Provider>)				
 
 				let html = `
+				<!DOCTYPE HTML>
 				<html>
 					<head>
 						<title>Universal</title>
+						<meta charset="UTF-8" />
+						<script>
+							window.__INITIAL_STATE__ = {
+								location: "client",
+								todos: [
+								{
+									text: "Make bed"
+								},
+								{
+									text: "Buy groceries"
+								}]
+							}
+						</script>
 					</head>
 					<body>
 						<div id="root">${componentHtml}</div>

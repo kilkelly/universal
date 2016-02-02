@@ -13,12 +13,12 @@ let history = isNode
 					? createMemoryHistory()
 					: createBrowserHistory()
 
-export const routes = 		
+export const routes =
 <Router history={history}>
 	<Route path="/" component={App}>	
 		<IndexRoute component={Home} />
 		<Route path="about" component={About} />
 		<Route path="todos" component={Todos} state={store.getState()}/>
 	</Route>	
-</Router>
+</Router>	
 

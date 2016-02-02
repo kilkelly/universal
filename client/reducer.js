@@ -1,14 +1,4 @@
-var initialState = {
-	todos: [
-	{
-		text: "Make bed"
-	},
-	{
-		text: "Buy groceries"
-	}]
-}
-
-const reducer = (state = initialState, action) => {
+const reducer = (state = window.__INITIAL_STATE__, action) => {
 	switch(action.type) {
 		case "ADD_TODO":
 			console.log("ADD_TODO action initiated")
