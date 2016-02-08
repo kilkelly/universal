@@ -1,11 +1,5 @@
 import { createStore } from "redux"
-import isNode from "detect-node"
-import clientReducer from "../client/reducer"
-import serverReducer from "../server/reducer"
-
-let reducer = isNode
-				? serverReducer
-				: clientReducer
+import reducer from "./reducer"
 
 const store = createStore(reducer)
 

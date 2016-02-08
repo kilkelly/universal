@@ -16,7 +16,7 @@ export const routes =
 <Router history={history}>
 	<Route path="/" component={AppContainer}>	
 		<IndexRoute component={Home} />
-		<Route path="todos" component={Todos} todos={store.getState().get("todos")}/>
+		<Route path="todos" component={Todos} todos={store.getState().todos}/>
 	</Route>	
 </Router>	
 
