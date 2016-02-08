@@ -43,8 +43,11 @@ export const receivePosts = (subreddit, data) => {
 	}	
 }
 
+// this is a thunk which is picked up by the thunkMiddleware
+// a thunk is an action creator which returns a function
+// http://rackt.org/redux/docs/advanced/AsyncActions.html
 export const fetchPosts = subreddit => dispatch => {
 	dispatch(requestPosts(subreddit))
 	return axios.get(`http://www.reddit.com/r/${subreddit}.json`)				
-				.then(response => dispatch(receivePosts(subreddit, response.data.data)))
+				.then(response => dispatch(receivePosts(subreddit, response.data.data)))				
 }
