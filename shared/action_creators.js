@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const USE_LIGHT_SWITCH = "USE_LIGHT_SWITCH"
 
 export const useLightSwitch = () => {
@@ -14,13 +16,13 @@ export const INVALIDATE_SUBREDDIT = "INVALIDATE_SUBREDDIT"
 export const REQUEST_POSTS = "REQUEST_POSTS"
 export const RECEIVE_POSTS = "RECEIVE_POSTS"
 
-export const selectSubreddit = (subReddit) => {
+export const selectSubreddit = (subreddit) => {
 	return {
 		type: SELECT_SUBREDDIT,
 		subreddit
 	}
 } 
-export const invalidateSubreddit = (subReddit) => {
+export const invalidateSubreddit = (subreddit) => {
 	return {
 		type: INVALIDATE_SUBREDDIT,
 		subreddit
@@ -32,12 +34,17 @@ export const requestPosts = (subreddit) => {
 		subreddit
 	}
 }
-export const receivePosts = (subreddit, json) => {
+export const receivePosts = (subreddit, data) => {	
 	return {
 		type: RECEIVE_POSTS,
 		subreddit,
-		posts: json.data.children.map(child => child.data),
+		posts: data.children.map(child => child.data),
 		receivedAt: Date.now()
 	}	
 }
 
+export const fetchPosts = subreddit => dispatch => {
+	dispatch(requestPosts(subreddit))
+	return axios.get(`http://www.reddit.com/r/${subreddit}.json`)				
+				.then(response => dispatch(receivePosts(subreddit, response.data.data)))
+}

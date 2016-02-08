@@ -3,6 +3,7 @@ Testing a tiny universal / isomorphic app utilising React JS
 
 ASYNC ACTIONS TUTORIAL
 - http://rackt.org/redux/docs/advanced/AsyncActions.html
+Intoduces the idea of thunks
 
 STATELESS FUNCTIONAL COMPONENTS
 - https://camjackson.net/post/9-things-every-reactjs-beginner-should-know#write-functional-components

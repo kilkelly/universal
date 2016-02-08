@@ -37,7 +37,7 @@ const posts = (state = fromJS({
 	switch(action.type) {
 		case INVALIDATE_SUBREDDIT:
 			return state.set("didInvalidate", true)
-		case REQUEST_POSTS:
+		case REQUEST_POSTS:			
 			return state
 					.set("isFetching", true)
 					.set("didInvalidate", false)
@@ -57,7 +57,7 @@ const postsBySubreddit = (state = fromJS({}), action) => {
 		case INVALIDATE_SUBREDDIT:		
 		case RECEIVE_POSTS:		
 		case REQUEST_POSTS:
-			return state.set(
+			return state.set(				
 				action.subreddit,
 				posts(state.get(action.subreddit), action)
 			)
@@ -66,10 +66,10 @@ const postsBySubreddit = (state = fromJS({}), action) => {
 	}
 }
 
-const lightSwitch = (state = fromJS({ roomLit: true }), action) => {
+const lightSwitch = (state = "OFF", action) => {
 	switch(action.type) {
 		case USE_LIGHT_SWITCH:
-			return state.set("roomLit", !state.get("roomLit"))
+			return state === "OFF" ? "ON": "OFF"
 		default:
 			return state
 	}
