@@ -4,7 +4,7 @@ import LightSwitch from "../pure/LightSwitch"
 
 function mapStateToProps(state) {
 	return {
-		lightSwitch: state.lightSwitch
+		lightSwitch: state.get("lightSwitch")
 	}
 }
 

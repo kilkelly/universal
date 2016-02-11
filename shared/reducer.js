@@ -1,5 +1,7 @@
-import { combineReducers } from "redux"
 import { fromJS } from "immutable"
+// Redux combineReducers treats state object as a plain JavaScript object.
+// combineReducers created using redux-immutable uses Immutable.js API to iterate the state.
+import { combineReducers } from "redux-immutable"
 import isNode from "detect-node"
 import { 
 	USE_LIGHT_SWITCH,
@@ -10,19 +12,10 @@ import {
 } from "./action_creators"
 
 
-var initialTodos = fromJS([
-	{
-		text: "Make bed"
-	},
-	{
-		text: "Buy groceries"
-	}
-])
-
-
-const selectedSubreddit = (state = "reactjs", action) => {
+const selectedSubreddit = (state = "videos", action) => {
 	switch(action.type) {
 		case SELECT_SUBREDDIT:
+			console.log(action.subreddit)
 			return action.subreddit
 		default:
 			return state
@@ -30,10 +23,11 @@ const selectedSubreddit = (state = "reactjs", action) => {
 }
 
 const posts = (state = fromJS({
-	isFetching: false,
-	didInvalidate: false,
-	items: []				
-}), action) => {
+				  isFetching: false,
+				  didInvalidate: false,
+				  items: []
+				})
+				, action) => {
 	switch(action.type) {
 		case INVALIDATE_SUBREDDIT:
 			return state.set("didInvalidate", true)
@@ -54,7 +48,11 @@ const posts = (state = fromJS({
 
 const postsBySubreddit = (state = fromJS({}), action) => {
 	switch(action.type) {
-		case INVALIDATE_SUBREDDIT:		
+		case INVALIDATE_SUBREDDIT:					
+			return state.set(				
+				action.subreddit,
+				posts(state.get(action.subreddit), action)
+			)
 		case RECEIVE_POSTS:		
 		case REQUEST_POSTS:
 			return state.set(				
@@ -75,11 +73,14 @@ const lightSwitch = (state = "OFF", action) => {
 	}
 }
 
-const todos = (state = (
-				isNode
-				? initialTodos
-				: fromJS(window.__INITIAL_STATE__.todos)
-				), action) => {
+const todos = (state = fromJS([
+							{
+								text: "Make bed"
+							},
+							{
+								text: "Buy groceries"
+							}
+						]), action) => {
 	switch(action.type) {
 		default:
 			return state

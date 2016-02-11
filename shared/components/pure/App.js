@@ -1,4 +1,5 @@
 import React from "react"
+import DevTools from "../DevTools"
 import Menu from "./Menu"
 import LightSwitchContainer from "../container/LightSwitchContainer"
 import OneOrManyChildGrouping from "../pure/OneOrManyChildGrouping"
@@ -8,7 +9,7 @@ export default class App extends React.Component {
 	//console.log(React.Children.only(props.children))
 	render() {
 		return(
-			<div>
+			<div>			
 				<Menu />				
 				
 				{this.props.children}
@@ -24,6 +25,8 @@ export default class App extends React.Component {
 					<IAmAChild />
 					<IAmAChild />
 				</OneOrManyChildGrouping>				
+
+				<DevTools />
 			</div>		
 		)
 	}	

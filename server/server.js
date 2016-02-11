@@ -24,7 +24,7 @@ export const start = (port = 3000) => {
 			} else if (renderProps) {
 
 				let componentHtml = renderToString(<Provider store={store}><RoutingContext {...renderProps} /></Provider>)				
-				let initialState = JSON.stringify(store.getState())
+				let initialState = JSON.stringify(store.getState())				
 
 				let html = `
 				<!DOCTYPE HTML>

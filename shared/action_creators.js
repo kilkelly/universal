@@ -43,11 +43,45 @@ export const receivePosts = (subreddit, data) => {
 	}	
 }
 
+
 // this is a thunk which is picked up by the thunkMiddleware
 // a thunk is an action creator which returns a function
 // http://rackt.org/redux/docs/advanced/AsyncActions.html
-export const fetchPosts = subreddit => dispatch => {
+// The dispatch parameter in the inner function is set 
+// by the thunkMiddleware.
+export const fetchPosts = subreddit => dispatch => {	
 	dispatch(requestPosts(subreddit))
 	return axios.get(`http://www.reddit.com/r/${subreddit}.json`)				
 				.then(response => dispatch(receivePosts(subreddit, response.data.data)))				
+}
+const shouldFetchPosts = (state, subreddit) => {
+	const posts = state.getIn(["postsBySubreddit", subreddit])	
+	if (!posts) {
+		console.log("!posts")
+		return true
+	} else if (posts.get("isFetching")) {		
+		console.log("isFetching")
+		return false
+	} else {
+		console.log("didInvalidate")
+		return posts.get("didInvalidate")
+	}
+}
+// The dispatch and getState parameters in the inner function is set 
+// by the thunkMiddleware.
+export const fetchPostsIfNeeded = (subreddit) => (dispatch, getState) => {	
+	console.log("reached here")
+	if (shouldFetchPosts(getState(), subreddit)) {
+		return dispatch(fetchPosts(subreddit))
+	} else {
+		return Promise.resolve()
+	}
+}
+export const refreshSubreddit = subreddit => dispatch => {	
+	dispatch(invalidateSubreddit(subreddit))
+	dispatch(fetchPostsIfNeeded(subreddit))
+}
+export const setSubreddit = subreddit => dispatch => {	
+	dispatch(selectSubreddit(subreddit))
+	dispatch(fetchPostsIfNeeded(subreddit))
 }

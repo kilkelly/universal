@@ -7,6 +7,7 @@ import store from "./store"
 import AppContainer from "./components/container/AppContainer"
 import Home from "./components/pure/Home"
 import Todos from "./components/pure/Todos"
+import SubredditsContainer from "./components/container/SubredditsContainer"
 
 let history = isNode 
 					? createMemoryHistory()
@@ -16,7 +17,8 @@ export const routes =
 <Router history={history}>
 	<Route path="/" component={AppContainer}>	
 		<IndexRoute component={Home} />
-		<Route path="todos" component={Todos} todos={store.getState().todos}/>
+		<Route path="todos" component={Todos} todos={store.getState().get("todos")}/>
+		<Route path="subreddits" component={SubredditsContainer} />
 	</Route>	
 </Router>	
 

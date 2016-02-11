@@ -6,7 +6,8 @@ const Menu = props => {
 	return(
 		<div>
 			<Link to="/">Home</Link>&nbsp;|&nbsp;			
-			<Link to="todos">Todos</Link>
+			<Link to="todos">Todos</Link>&nbsp;|&nbsp;			
+			<Link to="subreddits">Subreddits</Link>
 		</div>
 	)	
 }
