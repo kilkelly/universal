@@ -15,7 +15,6 @@ import {
 const selectedSubreddit = (state = "videos", action) => {
 	switch(action.type) {
 		case SELECT_SUBREDDIT:
-			console.log(action.subreddit)
 			return action.subreddit
 		default:
 			return state

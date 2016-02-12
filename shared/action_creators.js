@@ -38,7 +38,7 @@ export const receivePosts = (subreddit, data) => {
 	return {
 		type: RECEIVE_POSTS,
 		subreddit,
-		posts: data.children.map(child => child.data),
+		posts: (!data) ? null : data.children.map(child => child.data),
 		receivedAt: Date.now()
 	}	
 }
@@ -53,24 +53,22 @@ export const fetchPosts = subreddit => dispatch => {
 	dispatch(requestPosts(subreddit))
 	return axios.get(`http://www.reddit.com/r/${subreddit}.json`)				
 				.then(response => dispatch(receivePosts(subreddit, response.data.data)))				
+				.catch(response => dispatch(receivePosts(subreddit, null)))
+
 }
 const shouldFetchPosts = (state, subreddit) => {
 	const posts = state.getIn(["postsBySubreddit", subreddit])	
 	if (!posts) {
-		console.log("!posts")
 		return true
 	} else if (posts.get("isFetching")) {		
-		console.log("isFetching")
 		return false
 	} else {
-		console.log("didInvalidate")
 		return posts.get("didInvalidate")
 	}
 }
 // The dispatch and getState parameters in the inner function is set 
 // by the thunkMiddleware.
 export const fetchPostsIfNeeded = (subreddit) => (dispatch, getState) => {	
-	console.log("reached here")
 	if (shouldFetchPosts(getState(), subreddit)) {
 		return dispatch(fetchPosts(subreddit))
 	} else {
