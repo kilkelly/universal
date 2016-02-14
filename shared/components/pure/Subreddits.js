@@ -22,7 +22,7 @@ export default class Subreddits extends React.Component {
 	items() {
 		return(
 			<ul>
-				{this.props.items.slice(0, 5).map((item, index) =>
+				{this.props.items.slice(0, 10).map((item, index) =>
 					<li key={index}><a href={item.get("url")} target="_blank">{item.get("title")}</a> <a href={"http://www.reddit.com" + item.get("permalink")} target="_blank">(comments)</a></li>
 				)}
 			</ul>
