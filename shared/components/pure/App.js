@@ -9,7 +9,7 @@ export default class App extends React.Component {
 	//console.log(React.Children.only(props.children))
 	render() {
 		return(
-			<div>			
+			<div>xx			
 				<Menu />				
 				
 				{this.props.children}

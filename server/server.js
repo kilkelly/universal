@@ -9,6 +9,28 @@ import store from "../shared/store"
 export const start = (port = 3000) => {
 	const app = express()	
 
+	//*********DEV****************
+	if (process.env.NODE_ENV === "development") {		
+		var webpack = require("webpack");
+		var config = require("../webpack.config.dev.js");
+		var devMiddleware = require("webpack-dev-middleware");
+		var hotMiddleware = require("webpack-hot-middleware");
+
+		var compiler = webpack(config);
+
+		app.use(devMiddleware(compiler, { 
+			noInfo: true,
+			publicPath: config.output.publicPath,
+			stats: {
+				colors: true
+			}
+		})); 
+		app.use(hotMiddleware(compiler));
+
+		console.log("Webpack middleware loaded")		
+	}	
+	//*********/DEV***************
+
 	app.use(express.static("dist"))
 
 	app.get("*", (req, res) => {		

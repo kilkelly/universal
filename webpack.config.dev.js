@@ -3,7 +3,8 @@ var webpack = require("webpack");
 
 module.exports = {
 	entry: [
-		"./client/client"
+		"webpack-hot-middleware/client",
+		"./client/client"		
 	],
 	output: {
 		path: path.join(__dirname, "dist"),
@@ -19,7 +20,10 @@ module.exports = {
 			{
 				test: /\.jsx?$/,
 				exclude: /node_modules/,
-				loaders: ["babel"]
+				loader: "babel",
+		        query: {
+		          presets: ['react-hmre']
+		        }				
 			},
 			{
 				test: /\.scss$/,
@@ -28,6 +32,10 @@ module.exports = {
 			}
 		]
 	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NoErrorsPlugin()
+	],
 	devtool: 'inline-source-map',
 	devtool: 'cheap-module-eval-source-map',
 }
