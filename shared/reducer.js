@@ -2,7 +2,6 @@ import { fromJS } from "immutable"
 // Redux combineReducers treats state object as a plain JavaScript object.
 // combineReducers created using redux-immutable uses Immutable.js API to iterate the state.
 import { combineReducers } from "redux-immutable"
-import isNode from "detect-node"
 import { 
 	USE_LIGHT_SWITCH,
 	SELECT_SUBREDDIT,
